@@ -39,7 +39,7 @@ Significant changes or events:"""
                 temperature=0.7,
             )
 
-            analysis = response.choices[0].message['content'].strip()
+            analysis = ""+response.choices[0].message.content
             
             if "no significant changes" not in analysis.lower():
                 alerts.append(f"Alert for ROI {roi_id}: {analysis}")

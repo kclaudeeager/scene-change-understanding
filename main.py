@@ -37,6 +37,9 @@ def main():
         duration=duration
     )
     
+    print("ROI tracking complete. and returned roi_history: {}".format(roi_history))
+    print("Scene tracking complete. Analyzing changes...")
+    
     model_name = config['llm']['model']
     analyze_changes(roi_history, model_name=model_name)
 

@@ -1,0 +1,8 @@
+torch
+Pillow
+florence2
+transformers
+opencv-python
+pyyaml
+python-dotenv
+openai

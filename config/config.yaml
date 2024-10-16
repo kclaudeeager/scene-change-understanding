@@ -1,0 +1,13 @@
+model:
+  name: "microsoft/Florence-2-large"
+  device: "cuda"
+
+inference:
+  max_new_tokens: 50
+
+roi_tracker:
+  interval: 5
+  duration: 60
+
+llm:
+  model: "gpt4"

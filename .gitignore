@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual Environment
+venv/
+env/
+.venv/
+scene_change_detection/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# Model checkpoints and large data files
+*.pth
+*.pt
+*.ckpt
+*.bin
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Docker (if not needed in version control)
+Dockerfile
+docker-compose.yml
+
+# Output directories
+output/
+results/
+papers/

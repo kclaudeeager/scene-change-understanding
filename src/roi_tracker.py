@@ -2,7 +2,7 @@ import cv2
 from PIL import Image
 import time
 from .inference import analyze_image
-from utils import plot_bbox
+from utils.visualization import plot_bbox
 
 def track_rois(video_source, model, processor, interval=5, duration=60):
     cap = cv2.VideoCapture(video_source)

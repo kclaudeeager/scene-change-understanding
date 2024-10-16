@@ -1,3 +1,4 @@
+               
 import os
 from dotenv import load_dotenv
 import openai
@@ -6,8 +7,7 @@ from openai import OpenAIError
 # Load environment variables
 load_dotenv()
 
-def analyze_changes(roi_history, model_name="gpt-4"):
-    # Get the API key from the environment variable
+def analyze_changes(roi_history, model_name="gpt-4", instruction_prompt=None):
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
     if not openai.api_key:
@@ -15,11 +15,15 @@ def analyze_changes(roi_history, model_name="gpt-4"):
 
     alerts = []
 
+    # Default instruction prompt if none is provided
+    if instruction_prompt is None:
+        instruction_prompt = """Analyze the following scene descriptions over time and identify any significant changes or events that require attention. Focus on changes in objects, people, or activities that might be important for security or monitoring purposes. If there are no significant changes, state that explicitly."""
+
     for roi_id, descriptions in roi_history.items():
         if len(descriptions) < 2:
             continue
         
-        prompt = f"""Analyze the following scene descriptions over time and identify any significant changes or events that require attention. Focus on changes in objects, people, or activities that might be important for security or monitoring purposes. If there are no significant changes, state that explicitly.
+        prompt = f"""{instruction_prompt}
 
 Scene descriptions:
 {descriptions}
@@ -41,7 +45,7 @@ Significant changes or events:"""
 
             analysis = ""+response.choices[0].message.content
             
-            print("Analysis for ROI {}: {}".format(roi_id, analysis))
+            print(f"Analysis for ROI {roi_id}: {analysis}")
             
             if "no significant changes" not in analysis.lower():
                 alerts.append(f"Alert for ROI {roi_id}: {analysis}")
@@ -54,4 +58,4 @@ Significant changes or events:"""
 def send_alerts(alerts):
     for alert in alerts:
         print(f"ALERT: {alert}")
-        # Implement your alert system here (e.g., send email, push notification, etc.)
+    # Implement your alert system here (e.g., send email, push notification, etc.)

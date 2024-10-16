@@ -15,10 +15,10 @@ def main():
     parser.add_argument("--config", type=str, default="config/config.yaml", help="Path to config file")
     parser.add_argument("--interval", type=float, help="Interval between frames (in seconds)")
     parser.add_argument("--duration", type=float, help="Duration of tracking (in seconds)")
+    parser.add_argument("--chat_model_name", type=str, help="Model name to use for chat-based analysis")
     args = parser.parse_args()
 
     config = load_config(args.config)
-    
     model = load_model(config['model']['name'])
     processor = load_processor(config['model']['name'])
     
@@ -44,9 +44,10 @@ def main():
     high_security_prompt = """Analyze the scene descriptions with utmost vigilance. Report any changes, no matter how small, in people, objects, or environmental factors. Pay special attention to any unusual or suspicious activities. If there are absolutely no changes, state that explicitly."""
     # Example usage with custom prompt for environmental monitoring
     environmental_prompt = """Focus on changes in environmental conditions such as lighting, weather, or landscape alterations. Report any significant shifts in these factors, as well as any unusual events that might affect the environment. If no environmental changes are observed, state that clearly."""
-    model_name = config['llm']['model']
-    changes1=analyze_changes(roi_history, model_name=model_name)
-    changes2=analyze_changes(roi_history, model_name=model_name, instruction_prompt=high_security_prompt)
+    chat_model_name = config['llm']['model']
+    chat_model_name= args.chat_model_name if args.chat_model_name is not None else chat_model_name
+    changes1=analyze_changes(roi_history, model_name=chat_model_name)
+    changes2=analyze_changes(roi_history, model_name=chat_model_name, instruction_prompt=high_security_prompt)
     
     all_changes = changes1 + changes2
     if all_changes:

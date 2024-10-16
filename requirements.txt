@@ -7,3 +7,4 @@ python-dotenv
 openai
 timm 
 flash_attn
+huggingface_hub

@@ -4,11 +4,12 @@ import openai
 from openai import OpenAIError
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
-
+from huggingface_hub import login
 # Load environment variables
 load_dotenv()
 
 def load_llama3_model():
+    login(token=os.getenv("HUGGINGFACE_TOKEN"))
     model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(

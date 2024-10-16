@@ -6,7 +6,7 @@ from openai import OpenAIError
 # Load environment variables
 load_dotenv()
 
-def analyze_changes(roi_history,model_name="gpt-4"):
+def analyze_changes(roi_history, model_name="gpt-4"):
     # Get the API key from the environment variable
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
@@ -27,7 +27,7 @@ Scene descriptions:
 Significant changes or events:"""
 
         try:
-            response = openai.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model=model_name, 
                 messages=[
                     {"role": "system", "content": "You are an AI assistant analyzing scene changes for a security monitoring system."},

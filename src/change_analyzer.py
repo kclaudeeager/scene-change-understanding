@@ -41,6 +41,8 @@ Significant changes or events:"""
 
             analysis = ""+response.choices[0].message.content
             
+            print("Analysis for ROI {}: {}".format(roi_id, analysis))
+            
             if "no significant changes" not in analysis.lower():
                 alerts.append(f"Alert for ROI {roi_id}: {analysis}")
         

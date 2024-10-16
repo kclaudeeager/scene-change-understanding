@@ -27,7 +27,7 @@ Scene descriptions:
 Significant changes or events:"""
 
         try:
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model=model_name, 
                 messages=[
                     {"role": "system", "content": "You are an AI assistant analyzing scene changes for a security monitoring system."},

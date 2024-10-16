@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import openai
+from openai import OpenAIError
 
 # Load environment variables
 load_dotenv()
@@ -26,7 +27,7 @@ Scene descriptions:
 Significant changes or events:"""
 
         try:
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model=model_name, 
                 messages=[
                     {"role": "system", "content": "You are an AI assistant analyzing scene changes for a security monitoring system."},
@@ -43,7 +44,7 @@ Significant changes or events:"""
             if "no significant changes" not in analysis.lower():
                 alerts.append(f"Alert for ROI {roi_id}: {analysis}")
         
-        except openai.error.OpenAIError as e:
+        except OpenAIError as e:
             print(f"An error occurred while analyzing changes: {str(e)}")
     
     return alerts
